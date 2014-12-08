@@ -1,7 +1,7 @@
 using System;
-using MonoTouch.UIKit;
+using UIKit;
 using System.Drawing;
-using MonoTouch.CoreGraphics;
+using CoreGraphics;
 
 namespace XamarinStore
 {
@@ -37,7 +37,7 @@ namespace XamarinStore
 			var imageSize = ImageView.SizeThatFits (Bounds.Size);
 
 			var availableWidth = Bounds.Width - padding * 3 - imageSize.Width;
-			var stringSize = label.SizeThatFits (new System.Drawing.SizeF (availableWidth, Bounds.Height - padding * 2));
+			var stringSize = label.SizeThatFits (new CGSize (availableWidth, Bounds.Height - padding * 2));
 
 			availableWidth = Bounds.Width ;
 			availableWidth -= stringSize.Width;
@@ -45,7 +45,7 @@ namespace XamarinStore
 
 			var x = availableWidth / 2;
 
-			var frame = new RectangleF (new PointF (x, Bounds.GetMidY () - imageSize.Height / 2), imageSize);
+			var frame = new CGRect (new CGPoint (x, Bounds.GetMidY () - imageSize.Height / 2), imageSize);
 			ImageView.Frame = frame;
 
 			frame.X = frame.Right + (imageSize.Width > 0 ? padding : 0);
@@ -72,18 +72,18 @@ namespace XamarinStore
 			set{ label.Font = value; }
 		}
 
-		public override void TouchesBegan (MonoTouch.Foundation.NSSet touches, UIEvent evt)
+		public override void TouchesBegan (Foundation.NSSet touches, UIEvent evt)
 		{
 			base.TouchesBegan (touches, evt);
 			TintAdjustmentMode = UIViewTintAdjustmentMode.Dimmed;
 		}
 
-		public override void TouchesEnded (MonoTouch.Foundation.NSSet touches, UIEvent evt)
+		public override void TouchesEnded (Foundation.NSSet touches, UIEvent evt)
 		{
 			base.TouchesEnded (touches, evt);
 			TintAdjustmentMode = UIViewTintAdjustmentMode.Automatic;
 		}
-		public override void TouchesCancelled (MonoTouch.Foundation.NSSet touches, UIEvent evt)
+		public override void TouchesCancelled (Foundation.NSSet touches, UIEvent evt)
 		{
 			base.TouchesCancelled (touches, evt);
 			TintAdjustmentMode = UIViewTintAdjustmentMode.Automatic;

@@ -3,15 +3,15 @@ using System.Linq;
 using System.Drawing;
 using System.Collections.Generic;
 
-using MonoTouch.UIKit;
-using MonoTouch.Foundation;
+using UIKit;
+using Foundation;
 
 namespace XamarinStore.iOS
 {
 	public class ProductListViewController : UITableViewController
 	{
 		const int ProductCellRowHeight = 300;
-		static float ImageWidth = UIScreen.MainScreen.Bounds.Width * UIScreen.MainScreen.Scale;
+		static nfloat ImageWidth = UIScreen.MainScreen.Bounds.Width * UIScreen.MainScreen.Scale;
 
 		public event Action<Product> ProductTapped = delegate {};
 
@@ -37,7 +37,7 @@ namespace XamarinStore.iOS
 			source.Products = await WebService.Shared.GetProducts ();
 			//Kicking off a task no need to await
 			#pragma warning disable 4014
-			WebService.Shared.PreloadImages (320 * UIScreen.MainScreen.Scale);
+			WebService.Shared.PreloadImages (320 * (float)UIScreen.MainScreen.Scale);
 			#pragma warning restore 4014
 			TableView.ReloadData ();
 		}
@@ -57,8 +57,9 @@ namespace XamarinStore.iOS
 			{
 				ProductSelected = productSelected;
 			}
+				
 
-			public override int RowsInSection (UITableView tableview, int section)
+			public override nint RowsInSection (UITableView tableview, nint section)
 			{
 				return Products == null ? 1 : Products.Count;
 			}
@@ -103,7 +104,7 @@ namespace XamarinStore.iOS
 
 			void updateImage()
 			{
-				var url = product.ImageForSize (ImageWidth);
+				var url = product.ImageForSize ((float)ImageWidth);
 				imageView.LoadUrl (url);
 			}
 
@@ -152,7 +153,7 @@ namespace XamarinStore.iOS
 				var bounds = ContentView.Bounds;
 
 				imageView.Frame = bounds;
-				nameLabel.Frame = new RectangleF (
+				nameLabel.Frame = new CoreGraphics.CGRect (
 					bounds.X + 12,
 					bounds.Bottom - 58,
 					bounds.Width,
@@ -160,7 +161,7 @@ namespace XamarinStore.iOS
 				);
 
 				var priceSize = ((NSString)Product.PriceDescription).StringSize (priceLabel.Font);
-				priceLabel.Frame = new RectangleF (
+				priceLabel.Frame = new CoreGraphics.CGRect (
 					bounds.Width - priceSize.Width - 2 * PriceLabelPadding.Width - 12,
 					bounds.Bottom - priceSize.Height - 2 * PriceLabelPadding.Height - 14,
 					priceSize.Width + 2 * PriceLabelPadding.Width,

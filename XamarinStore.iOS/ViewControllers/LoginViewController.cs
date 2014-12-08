@@ -1,7 +1,7 @@
 using System;
-using MonoTouch.UIKit;
+using UIKit;
 using BigTed;
-using MonoTouch.Foundation;
+using Foundation;
 
 namespace XamarinStore.iOS
 {
@@ -61,7 +61,7 @@ namespace XamarinStore.iOS
 				UIView.Animate (UIKeyboard.AnimationDurationFromNotification (notification), () => {
 					UIView.SetAnimationCurve ((UIViewAnimationCurve)UIKeyboard.AnimationCurveFromNotification (notification));
 					var frame = UIKeyboard.FrameEndFromNotification (notification);
-					keyboardOffset = visible ? frame.Height : 0; 
+					keyboardOffset = visible ? (float)frame.Height : 0; 
 					ViewDidLayoutSubviews ();
 				});
 			}

@@ -22,10 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using MonoTouch.CoreAnimation;
-using MonoTouch.CoreGraphics;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using CoreAnimation;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 
 namespace XamarinStore
 {
@@ -75,7 +75,7 @@ namespace XamarinStore
 			timer.Fire();
 		}
 
-		void nextImage()
+		void nextImage(NSTimer timer)
 		{
 			if (Images.Count == 0 || currentIndex >= Images.Count && !ShouldLoop)
 			{
@@ -91,21 +91,21 @@ namespace XamarinStore
 			if (image == null)
 			if (image == null || image.Size == Size.Empty)
 				return;
-			float resizeRatio = -1;
-			float widthDiff = -1;
-			float heightDiff = -1;
-			float originX = -1;
-			float originY = -1;
-			float zoomInX = -1;
-			float zoomInY = -1;
-			float moveX = -1;
-			float moveY = -1;
-			float frameWidth = IsLandscape ? Bounds.Width : Bounds.Height;
-			float frameHeight = IsLandscape ? Bounds.Height : Bounds.Width;
+			nfloat resizeRatio = -1;
+			nfloat widthDiff = -1;
+			nfloat heightDiff = -1;
+			nfloat originX = -1;
+			nfloat originY = -1;
+			nfloat zoomInX = -1;
+			nfloat zoomInY = -1;
+			nfloat moveX = -1;
+			nfloat moveY = -1;
+			nfloat frameWidth = IsLandscape ? Bounds.Width : Bounds.Height;
+			nfloat frameHeight = IsLandscape ? Bounds.Height : Bounds.Width;
 
 			// Wider than screen 
-			float imageWidth = image.Size.Width == 0 ? 100 : image.Size.Width;
-			float imageHeight = image.Size.Height == 0 ? 100 : image.Size.Height;
+			nfloat imageWidth = image.Size.Width == 0 ? 100 : image.Size.Width;
+			nfloat imageHeight = image.Size.Height == 0 ? 100 : image.Size.Height;
 
 			if (imageWidth > frameWidth)
 			{
@@ -167,12 +167,12 @@ namespace XamarinStore
 			var optimusHeight = (imageHeight * resizeRatio) * enlargeRatio ;
 			var imageView = new UIView
 				{
-					Frame = new RectangleF(0, 0, optimusWidth, optimusHeight),
+					Frame = new CGRect(0, 0, optimusWidth, optimusHeight),
 					BackgroundColor = UIColor.Clear,
 				};
 
-			float maxMoveX = Math.Min(optimusWidth - frameWidth,50f);
-			float maxMoveY = Math.Min(optimusHeight - frameHeight, 50f) * 2/3;
+			var maxMoveX = (nfloat)Math.Min(optimusWidth - frameWidth,50f);
+			var maxMoveY = (nfloat)Math.Min(optimusHeight - frameHeight, 50f) * 2/3;
 
 			float rotation = (random.Next(9))/100;
 
@@ -220,7 +220,7 @@ namespace XamarinStore
 					Contents = image.CGImage,
 					AnchorPoint = PointF.Empty,
 					Bounds = imageView.Bounds,
-					Position = new PointF(originX, originY)
+				Position = new CGPoint(originX, originY)
 				};
 			imageView.Layer.AddSublayer(picLayer);
 
@@ -248,6 +248,7 @@ namespace XamarinStore
 
 			if (ImageIndexChanged != null)
 				ImageIndexChanged(currentIndex);
+				
 		}
 	}
 }

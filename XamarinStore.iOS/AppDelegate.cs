@@ -3,10 +3,10 @@ using System.Linq;
 using System.Drawing;
 using System.Collections.Generic;
 
-using MonoTouch.UIKit;
-using MonoTouch.Foundation;
-using MonoTouch.CoreAnimation;
-using MonoTouch.CoreGraphics;
+using UIKit;
+using Foundation;
+using CoreAnimation;
+using CoreGraphics;
 
 namespace XamarinStore.iOS
 {

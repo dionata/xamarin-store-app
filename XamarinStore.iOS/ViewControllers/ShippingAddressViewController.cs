@@ -1,7 +1,7 @@
 using System;
-using MonoTouch.UIKit;
+using UIKit;
 using BigTed;
-using MonoTouch.Foundation;
+using Foundation;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -159,17 +159,17 @@ namespace XamarinStore
 			{
 			}
 
-			public override int RowsInSection (UITableView tableview, int section)
+			public override nint RowsInSection (UITableView tableview, nint section)
 			{
 				return Cells.Count;
 			}
 
-			public override UITableViewCell GetCell (UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
+			public override UITableViewCell GetCell (UITableView tableView, Foundation.NSIndexPath indexPath)
 			{
 				return Cells [indexPath.Row];
 			}
 
-			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
+			public override nfloat GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
 			{
 				return Cells [indexPath.Row].Frame.Height;
 			}

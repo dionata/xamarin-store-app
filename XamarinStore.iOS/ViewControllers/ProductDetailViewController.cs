@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 using System.Drawing;
 
 using System.Threading.Tasks;
-using MonoTouch.CoreGraphics;
-using MonoTouch.CoreAnimation;
+using CoreGraphics;
+using CoreAnimation;
 
 namespace XamarinStore.iOS
 {
@@ -67,8 +67,8 @@ namespace XamarinStore.iOS
 		async Task animateView(UIView view)
 		{
 			var size = view.Frame.Size;
-			var grow = new SizeF(size.Width * 1.7f, size.Height * 1.7f);
-			var shrink = new SizeF(size.Width * .4f, size.Height * .4f);
+			var grow = new SizeF((float)size.Width * 1.7f, (float)size.Height * 1.7f);
+			var shrink = new SizeF((float)size.Width * .4f, (float)size.Height * .4f);
 			TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool> ();
 			//Set the animation path
 			var pathAnimation = CAKeyFrameAnimation.GetFromKeyPath("position");	
@@ -79,7 +79,7 @@ namespace XamarinStore.iOS
 
 			UIBezierPath path = new UIBezierPath ();
 			path.MoveTo (view.Center);
-			path.AddQuadCurveToPoint (new PointF (290, 34), new PointF(view.Center.X,View.Center.Y));
+			path.AddQuadCurveToPoint (new CGPoint (290, 34), new CGPoint(view.Center.X,View.Center.Y));
 			pathAnimation.Path = path.CGPath;
 
 			//Set size change
@@ -112,7 +112,7 @@ namespace XamarinStore.iOS
 				tcs.TrySetResult(true);
 			};
 			view.Layer.AddAnimation (animations,"movetocart");
-			NSTimer.CreateScheduledTimer (.5, () => view.RemoveFromSuperview ());
+			NSTimer.CreateScheduledTimer (.5, (timer) => view.RemoveFromSuperview ());
 			await tcs.Task;
 
 		}
@@ -138,7 +138,7 @@ namespace XamarinStore.iOS
 			var productDescriptionView = new ProductDescriptionView (CurrentProduct) {
 				Frame = new RectangleF (0, 0, 320, 120),
 			};
-			TableView.TableHeaderView = new UIView(new RectangleF(0,0,imageView.Frame.Width,imageView.Frame.Bottom)){imageView};
+			TableView.TableHeaderView = new UIView(new CGRect(0,0,imageView.Frame.Width,imageView.Frame.Bottom)){imageView};
 			var tableItems = new List<UITableViewCell> () {
 				new CustomViewCell (productDescriptionView),
 			};
@@ -152,7 +152,7 @@ namespace XamarinStore.iOS
 		async void loadImages()
 		{
 			for (int i = 0; i < imageUrls.Length; i++) {
-				var path = await FileCache.Download (Product.ImageForSize (imageUrls [i], 320 * UIScreen.MainScreen.Scale));
+				var path = await FileCache.Download (Product.ImageForSize (imageUrls [i], 320 * (float)UIScreen.MainScreen.Scale));
 				imageView.Images [i] = UIImage.FromFile (path);
 			}
 		}
@@ -210,17 +210,17 @@ namespace XamarinStore.iOS
 			tableItems = items;
 		}
 
-		public override int RowsInSection (UITableView tableview, int section)
+		public override nint RowsInSection (UITableView tableview, nint section)
 		{
 			return tableItems.Length;
 		}
 
-		public override UITableViewCell GetCell (UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
+		public override UITableViewCell GetCell (UITableView tableView, Foundation.NSIndexPath indexPath)
 		{
 			return tableItems [indexPath.Row];
 		}
 
-		public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
+		public override nfloat GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
 		{
 			return tableItems [indexPath.Row].Frame.Height;
 		}

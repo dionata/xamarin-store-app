@@ -1,8 +1,9 @@
 using System;
 using System.Drawing;
 
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
+using CoreGraphics;
 
 namespace XamarinStore
 {
@@ -77,7 +78,7 @@ namespace XamarinStore
 
 			var textSize = new NSString ("hello").StringSize (UIFont.SystemFontOfSize (12f));
 
-			AddConstantSizeConstraints (EmailField, new SizeF (260, textSize.Height + 16));
+			AddConstantSizeConstraints (EmailField, new SizeF (260, (float)textSize.Height + 16));
 
 			Add (PasswordField = new UITextField (new RectangleF (10, 10, 300, 30)) {
 				BorderStyle = UITextBorderStyle.RoundedRect,
@@ -105,7 +106,7 @@ namespace XamarinStore
 				1f, 0
 			));
 
-			AddConstantSizeConstraints (PasswordField, new SizeF (260, textSize.Height + 16));
+			AddConstantSizeConstraints (PasswordField, new SizeF (260, (float)textSize.Height + 16));
 
 			PasswordField.ShouldReturn = field => {
 				field.ResignFirstResponder ();

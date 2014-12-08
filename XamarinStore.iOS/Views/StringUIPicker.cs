@@ -3,7 +3,8 @@ using System.Linq;
 using System.Drawing;
 using System.Collections.Generic;
 
-using MonoTouch.UIKit;
+using UIKit;
+using CoreGraphics;
 
 namespace XamarinStore
 {
@@ -68,17 +69,17 @@ namespace XamarinStore
 				BackgroundColor = UIColor.Gray.ColorWithAlpha (0.5f)
 			};
 
-			float titleBarHeight = 44;
-			var actionSheetSize = new SizeF (parentView.Frame.Width, this.Frame.Height + titleBarHeight);
-			var actionSheetFrameHidden = new RectangleF (0, parentView.Frame.Height, actionSheetSize.Width, actionSheetSize.Height);
-			var actionSheetFrameDisplayed = new RectangleF (0, parentView.Frame.Height - actionSheetSize.Height, actionSheetSize.Width, actionSheetSize.Height);
+			const float titleBarHeight = 44;
+			var actionSheetSize = new SizeF ((float)parentView.Frame.Width, (float)this.Frame.Height + titleBarHeight);
+			var actionSheetFrameHidden = new CGRect (0, parentView.Frame.Height, actionSheetSize.Width, actionSheetSize.Height);
+			var actionSheetFrameDisplayed = new CGRect (0, parentView.Frame.Height - actionSheetSize.Height, actionSheetSize.Width, actionSheetSize.Height);
 
 			// Hide the action sheet before we animate it so it comes from the bottom.
 			actionSheet.Frame = actionSheetFrameHidden;
 
 			this.Frame = new RectangleF (0, 1, actionSheetSize.Width, actionSheetSize.Height - titleBarHeight);
 
-			var toolbarPicker = new UIToolbar (new RectangleF (0, 0, actionSheet.Frame.Width, titleBarHeight)) {
+			var toolbarPicker = new UIToolbar (new CGRect (0, 0, actionSheet.Frame.Width, titleBarHeight)) {
 				ClipsToBounds = true,
 				Items = new UIBarButtonItem[] {
 					new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace), 
@@ -96,7 +97,7 @@ namespace XamarinStore
 			};
 
 			// Creates a blur background using the toolbar trick.
-			var toolbarBg = new UIToolbar (new RectangleF (0, 0, actionSheet.Frame.Width, actionSheet.Frame.Height)) {
+			var toolbarBg = new UIToolbar (new CGRect (0, 0, actionSheet.Frame.Width, actionSheet.Frame.Height)) {
 				ClipsToBounds = true
 			};
 

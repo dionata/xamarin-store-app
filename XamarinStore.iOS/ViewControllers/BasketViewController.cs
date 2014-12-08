@@ -1,8 +1,8 @@
 using System;
-using MonoTouch.UIKit;
-using MonoTouch.CoreGraphics;
+using UIKit;
+using CoreGraphics;
 using System.Drawing;
-using MonoTouch.CoreAnimation;
+using CoreAnimation;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -108,12 +108,12 @@ namespace XamarinStore
 
 			#region implemented abstract members of UITableViewSource
 
-			public override int RowsInSection (UITableView tableview, int section)
+			public override nint RowsInSection (UITableView tableview, nint section)
 			{
 				return order.Products.Count;
 			}
 
-			public override UITableViewCell GetCell (UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
+			public override UITableViewCell GetCell (UITableView tableView, Foundation.NSIndexPath indexPath)
 			{
 				var cell = tableView.DequeueReusableCell (ProductCell.Key) as ProductCell ?? new ProductCell ();
 				//No need to wait to return the cell It will update when the data is ready
@@ -125,16 +125,16 @@ namespace XamarinStore
 
 			#endregion
 
-			public override UITableViewCellEditingStyle EditingStyleForRow (UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
+			public override UITableViewCellEditingStyle EditingStyleForRow (UITableView tableView, Foundation.NSIndexPath indexPath)
 			{
 				return UITableViewCellEditingStyle.Delete;
 			}
 
-			public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, MonoTouch.Foundation.NSIndexPath indexPath)
+			public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, Foundation.NSIndexPath indexPath)
 			{
 				if (editingStyle == UITableViewCellEditingStyle.Delete) {
 					order.Remove (order.Products [indexPath.Row]);
-					tableView.DeleteRows (new MonoTouch.Foundation.NSIndexPath[]{ indexPath }, UITableViewRowAnimation.Fade);
+					tableView.DeleteRows (new Foundation.NSIndexPath[]{ indexPath }, UITableViewRowAnimation.Fade);
 					if (RowDeleted != null)
 						RowDeleted ();
 				}
@@ -197,7 +197,7 @@ namespace XamarinStore
 						TextColor = Color.Blue,
 					};
 					PriceLabel.SizeToFit ();
-					AccessoryView = new UIView (new RectangleF (0, 0, PriceLabel.Frame.Width + 10, 54)) {
+					AccessoryView = new UIView (new CGRect (0, 0, PriceLabel.Frame.Width + 10, 54)) {
 						BackgroundColor = UIColor.Clear,
 					};
 					AccessoryView.AddSubview (PriceLabel);
@@ -218,8 +218,8 @@ namespace XamarinStore
 					var bounds = ContentView.Bounds;
 					var midY = bounds.GetMidY ();
 
-					var center = new PointF (ImageSize.Width / 2 + leftPadding, midY);
-					ImageView.Frame = new RectangleF (PointF.Empty, ImageSize);
+					var center = new CGPoint (ImageSize.Width / 2 + leftPadding, midY);
+					ImageView.Frame = new CGRect (PointF.Empty, ImageSize);
 					ImageView.Center = center;
 
 
@@ -228,15 +228,15 @@ namespace XamarinStore
 					var labelWidth = bounds.Width - (x + (leftPadding * 2));
 
 
-					NameLabel.Frame = new RectangleF (x, y, labelWidth, NameLabel.Frame.Height);
+					NameLabel.Frame = new CGRect (x, y, labelWidth, NameLabel.Frame.Height);
 					y = NameLabel.Frame.Bottom;
 
-					SizeLabel.Frame = new RectangleF (x, y, labelWidth, SizeLabel.Frame.Height);
+					SizeLabel.Frame = new CGRect (x, y, labelWidth, SizeLabel.Frame.Height);
 					y = SizeLabel.Frame.Bottom;
 
-					ColorLabel.Frame = new RectangleF (x, y, labelWidth, ColorLabel.Frame.Height);
+					ColorLabel.Frame = new CGRect (x, y, labelWidth, ColorLabel.Frame.Height);
 					y = ColorLabel.Frame.Bottom + topPadding;
-					LineView.Frame = new RectangleF (0, Bounds.Height - .5f, Bounds.Width, .5f);
+					LineView.Frame = new CGRect (0, Bounds.Height - .5f, Bounds.Width, .5f);
 
 				}
 

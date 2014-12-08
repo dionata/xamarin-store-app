@@ -1,5 +1,5 @@
 ﻿using System;
-using MonoTouch.UIKit;
+using UIKit;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -55,14 +55,14 @@ namespace XamarinStore
 			public StringTableViewController Parent;
 			#region implemented abstract members of UITableViewSource
 
-			public override int RowsInSection (UITableView tableview, int section)
+			public override nint RowsInSection (UITableView tableview, nint section)
 			{
 				if (Parent == null)
 					return 0;
 				return Parent.filteredItems.Count ();
 			}
 
-			public override UITableViewCell GetCell (UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
+			public override UITableViewCell GetCell (UITableView tableView, Foundation.NSIndexPath indexPath)
 			{
 				var cell = tableView.DequeueReusableCell ("stringCell") ?? new UITableViewCell (UITableViewCellStyle.Default, "stringCell");
 				if(Parent != null)
@@ -72,13 +72,13 @@ namespace XamarinStore
 
 			#endregion
 
-			public override void RowSelected (UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
+			public override void RowSelected (UITableView tableView, Foundation.NSIndexPath indexPath)
 			{
 				if (Parent == null)
 					return;
 				var item = Parent.filteredItems.ElementAt (indexPath.Row);
 				Parent.ItemSelected (item);
-				Parent.NavigationController.PopViewControllerAnimated (true);
+				Parent.NavigationController.PopViewController(true);
 			}
 
 
