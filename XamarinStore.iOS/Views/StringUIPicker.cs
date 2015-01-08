@@ -118,25 +118,25 @@ namespace XamarinStore
 
 			public string[] Items = new string[0];
 
-			public override int GetComponentCount (UIPickerView picker)
+			public override nint GetComponentCount (UIPickerView picker)
 			{
 				return 1;
 			}
 
-			public override int GetRowsInComponent (UIPickerView picker, int component)
+			public override nint GetRowsInComponent (UIPickerView picker, nint component)
 			{
 				return Items.Length;
 			}
 
-			public override string GetTitle (UIPickerView picker, int row, int component)
+			public override string GetTitle (UIPickerView picker, nint row, nint component)
 			{
 				return Items [row];
 			}
 
-			public override void Selected (UIPickerView picker, int row, int component)
+			public override void Selected (UIPickerView picker, nint row, nint component)
 			{
 				if (Parent != null)
-					Parent.SelectedIndex = row;
+					Parent.SelectedIndex = (int)row;
 			}
 
 		}

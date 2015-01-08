@@ -38,7 +38,7 @@ namespace XamarinStore
 
 		void CalculateSize ()
 		{
-			numberSize = StringSize (badgeNumber.ToString (), Font);
+			numberSize = badgeNumber.ToString ().StringSize(Font);
 			Frame = new CGRect (Frame.Location, new CGSize ((nfloat)Math.Max (numberSize.Width, height), height));
 		}
 	}
