@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using MonoTouch.CoreGraphics;
-using MonoTouch.UIKit;
+using CoreGraphics;
+using UIKit;
 
 namespace XamarinStore
 {
 	class BadgeView : UILabel
 	{
-		const float height = 14;
+		nfloat height = 14;
 
 		public int BadgeNumber {
 			get { return badgeNumber; }
@@ -22,7 +22,7 @@ namespace XamarinStore
 			}
 		}
 
-		SizeF numberSize;
+		CGSize numberSize;
 		int badgeNumber;
 
 		public BadgeView ()
@@ -38,8 +38,8 @@ namespace XamarinStore
 
 		void CalculateSize ()
 		{
-			numberSize = StringSize (badgeNumber.ToString (), Font);
-			Frame = new RectangleF (Frame.Location, new SizeF (Math.Max (numberSize.Width, height), height));
+			numberSize = badgeNumber.ToString ().StringSize(Font);
+			Frame = new CGRect (Frame.Location, new CGSize ((nfloat)Math.Max (numberSize.Width, height), height));
 		}
 	}
 }

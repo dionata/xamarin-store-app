@@ -1,5 +1,5 @@
 using System;
-using MonoTouch.UIKit;
+using UIKit;
 using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
@@ -53,7 +53,7 @@ namespace XamarinStore
 			ScrollToImage (CurrentIndex);
 		}
 
-		public override RectangleF Frame {
+		public override CoreGraphics.CGRect Frame {
 			get {
 				return base.Frame;
 			}

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MonoTouch.UIKit;
+using UIKit;
 using System.Threading.Tasks;
-using MonoTouch.CoreGraphics;
-using MonoTouch.CoreAnimation;
+using CoreGraphics;
+using CoreAnimation;
 using System.Drawing;
-using MonoTouch.Foundation;
+using Foundation;
 
 namespace XamarinStore
 {

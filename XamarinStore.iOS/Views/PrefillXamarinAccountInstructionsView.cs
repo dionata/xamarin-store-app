@@ -1,8 +1,8 @@
 using System;
 using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using MonoTouch.CoreGraphics;
+using Foundation;
+using UIKit;
+using CoreGraphics;
 
 namespace XamarinStore
 {

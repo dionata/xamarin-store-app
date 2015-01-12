@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using MonoTouch.UIKit;
-using MonoTouch.Foundation;
+using UIKit;
+using Foundation;
+using CoreGraphics;
 
 namespace XamarinStore
 {
 	public class TopAlignedImageView : UIView
 	{
-		SizeF origionalSize;
+		CGSize origionalSize;
 		public UIImage Image
 		{
 			get { return image; }
 			set
 			{
-				origionalSize = value == null ? SizeF.Empty : value.Size;
+				origionalSize = value == null ? CGSize.Empty : value.Size;
 				ImageView.Image = image = value;
 				LayoutSubviews ();
 			}

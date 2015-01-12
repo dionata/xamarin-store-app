@@ -1,6 +1,6 @@
 using System;
-using MonoTouch.UIKit;
-using MonoTouch.CoreAnimation;
+using UIKit;
+using CoreAnimation;
 
 namespace XamarinStore
 {
@@ -34,7 +34,7 @@ namespace XamarinStore
 		}
 		public float AccentColorIntensity
 		{
-			get{ return accentView.Alpha; }
+			get{ return (float)accentView.Alpha; }
 			set{ accentView.Alpha = value; }
 		}
 		public override UIColor TintColor {

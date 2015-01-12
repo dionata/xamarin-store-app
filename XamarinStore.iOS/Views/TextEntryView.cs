@@ -1,6 +1,7 @@
 ﻿using System;
-using MonoTouch.UIKit;
+using UIKit;
 using System.Drawing;
+using CoreGraphics;
 
 namespace XamarinStore
 {
@@ -58,7 +59,7 @@ namespace XamarinStore
 			var width = (Bounds.Width - (sidePadding * 2));
 			var height = Bounds.Height - (topPadding * 2);
 
-			textField.Frame = new RectangleF (sidePadding, topPadding, width, height);
+			textField.Frame = new CGRect (sidePadding, topPadding, width, height);
 		}
 	}
 }

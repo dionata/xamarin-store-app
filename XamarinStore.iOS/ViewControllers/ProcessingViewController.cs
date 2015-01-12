@@ -1,11 +1,11 @@
 using System;
-using MonoTouch.UIKit;
-using MonoTouch.CoreGraphics;
+using UIKit;
+using CoreGraphics;
 using System.Drawing;
 using System.Threading.Tasks;
-using MonoTouch.Twitter;
+using Twitter;
 using System.Linq;
-using MonoTouch.Foundation;
+using Foundation;
 
 namespace XamarinStore.iOS
 {
@@ -81,9 +81,7 @@ namespace XamarinStore.iOS
 		}
 		async void tweet()
 		{
-			DismissViewController (true, null);
-
-			var tvc = new MonoTouch.Twitter.TWTweetComposeViewController();
+			var tvc = new Twitter.TWTweetComposeViewController();
 			var products = await WebService.Shared.GetProducts();
 			if(products.Count > 0){
 				products.Shuffle ();
@@ -94,7 +92,7 @@ namespace XamarinStore.iOS
 			}
 			tvc.AddUrl (NSUrl.FromString("http://xamarin.com/sharp-shirt"));
 			tvc.SetInitialText("I just built a native iOS app with C# using #Xamarin and all I got was this free C# t-shirt!");
-			PresentViewController(tvc, true,null);
+			PresentViewControllerAsync(tvc, true);
 		}
 
 		class ProcessingView : UIView
@@ -130,7 +128,7 @@ namespace XamarinStore.iOS
 				};
 			}
 
-			RectangleF lastFrame;
+			CGRect lastFrame;
 			public override void LayoutSubviews ()
 			{
 				base.LayoutSubviews ();
@@ -139,7 +137,7 @@ namespace XamarinStore.iOS
 				if (Bounds == lastFrame)
 					return;
 				lastFrame = Bounds;
-				gear.Center = new PointF (Bounds.GetMidX (), Bounds.GetMidY () - (gear.Frame.Height/2));
+				gear.Center = new CGPoint (Bounds.GetMidX (), Bounds.GetMidY () - (gear.Frame.Height/2));
 			}
 
 			bool isSpinning;
@@ -199,7 +197,7 @@ namespace XamarinStore.iOS
 				set { 
 					status.Text = value ?? ""; 
 
-					var statusFrame = new RectangleF (10, gear.Frame.Bottom + 10f, Bounds.Width - 20f, Bounds.Height - gear.Frame.Bottom);
+					var statusFrame = new CGRect (10, gear.Frame.Bottom + 10f, Bounds.Width - 20f, Bounds.Height - gear.Frame.Bottom);
 					statusFrame.Height = status.SizeThatFits (statusFrame.Size).Height;
 					status.Frame = statusFrame;
 				}
@@ -214,7 +212,7 @@ namespace XamarinStore.iOS
 
 			public void ShowTryAgain()
 			{
-				var center = new PointF (Bounds.GetMidX (), Bounds.Height - tryAgain.Frame.Height / 2 - 10);
+				var center = new CGPoint (Bounds.GetMidX (), Bounds.Height - tryAgain.Frame.Height / 2 - 10);
 				tryAgain.Center = center;
 				tryAgain.Alpha = 0;
 				AddSubview (tryAgain);
@@ -290,7 +288,7 @@ namespace XamarinStore.iOS
 				base.LayoutSubviews ();
 				const float padding = 10;
 				var y = Bounds.Height / 3;
-				Check.Center = new PointF (Bounds.GetMidX (), y - Check.Frame.Height/2 );
+				Check.Center = new CGPoint (Bounds.GetMidX (), y - Check.Frame.Height/2 );
 
 				var frame = label1.Frame;
 				frame.X = padding;
@@ -299,7 +297,7 @@ namespace XamarinStore.iOS
 				label1.Frame = frame;
 
 				frame.Y = frame.Bottom + padding;
-				frame.Height = label2.SizeThatFits (new SizeF(frame.Width,Bounds.Height)).Height;
+				frame.Height = label2.SizeThatFits (new CGSize(frame.Width,Bounds.Height)).Height;
 				label2.Frame = frame;
 
 				frame = done.Frame;

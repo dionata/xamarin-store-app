@@ -1,7 +1,7 @@
 ﻿using System;
-using MonoTouch.UIKit;
+using UIKit;
 using System.Threading.Tasks;
-using MonoTouch.CoreGraphics;
+using CoreGraphics;
 using System.Drawing;
 
 namespace XamarinStore
@@ -14,7 +14,7 @@ namespace XamarinStore
 				return;
 			var progress = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge)
 			{
-				Center = new PointF(imageView.Bounds.GetMidX(), imageView.Bounds.GetMidY()),
+				Center = new CGPoint(imageView.Bounds.GetMidX(), imageView.Bounds.GetMidY()),
 			};
 			imageView.AddSubview (progress);
 

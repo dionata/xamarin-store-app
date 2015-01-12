@@ -1,6 +1,6 @@
 using System;
-using MonoTouch.UIKit;
-using MonoTouch.CoreGraphics;
+using UIKit;
+using CoreGraphics;
 
 namespace XamarinStore
 {
@@ -26,7 +26,7 @@ namespace XamarinStore
 		{
 			base.LayoutSubviews ();
 
-			var center = image.Center = new System.Drawing.PointF(Bounds.GetMidX(),Bounds.GetMidY());
+			var center = image.Center = new CGPoint(Bounds.GetMidX(),Bounds.GetMidY());
 
 			center.Y +=  (image.Frame.Height + text.Frame.Height) / 2;
 			text.Center = center;
