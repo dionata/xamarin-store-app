@@ -151,7 +151,7 @@ namespace XamarinStore
 
 		public async void OnGlobalLayout ()
 		{
-			productImage.ViewTreeObserver.RemoveGlobalOnLayoutListener (this);
+			productImage.ViewTreeObserver.RemoveOnGlobalLayoutListener (this);
 
 			const int DeltaX = 100;
 
@@ -164,23 +164,26 @@ namespace XamarinStore
 			productImage.SetImageDrawable (productDrawable);
 			currentIndex++;
 
-			var evaluator = new MatrixEvaluator ();
-			var finalMatrix = new Matrix ();
-			finalMatrix.SetTranslate (-DeltaX, -(float)productDrawable.FirstBitmap.Height / 1.3f + (float)productImage.Height);
-			finalMatrix.PostScale (1.27f, 1.27f);
-			kenBurnsMovement = ValueAnimator.OfObject (evaluator, new Matrix (), finalMatrix);
-			kenBurnsMovement.Update += (sender, e) => productDrawable.SetMatrix ((Matrix)e.Animation.AnimatedValue);
-			kenBurnsMovement.SetDuration (14000);
-			kenBurnsMovement.RepeatMode = ValueAnimatorRepeatMode.Reverse;
-			kenBurnsMovement.RepeatCount = ValueAnimator.Infinite;
-			kenBurnsMovement.Start ();
+			// Check for null bitmaps due to decode errors:
+			if (productDrawable.FirstBitmap != null) {
+				var evaluator = new MatrixEvaluator ();
+				var finalMatrix = new Matrix ();
+				finalMatrix.SetTranslate (-DeltaX, -(float)productDrawable.FirstBitmap.Height / 1.3f + (float)productImage.Height);
+				finalMatrix.PostScale (1.27f, 1.27f);
+				kenBurnsMovement = ValueAnimator.OfObject (evaluator, new Matrix (), finalMatrix);
+				kenBurnsMovement.Update += (sender, e) => productDrawable.SetMatrix ((Matrix)e.Animation.AnimatedValue);
+				kenBurnsMovement.SetDuration (14000);
+				kenBurnsMovement.RepeatMode = ValueAnimatorRepeatMode.Reverse;
+				kenBurnsMovement.RepeatCount = ValueAnimator.Infinite;
+				kenBurnsMovement.Start ();
 
-			kenBurnsAlpha = ObjectAnimator.OfInt (productDrawable, "alpha", 0, 0, 0, 255, 255, 255);
-			kenBurnsAlpha.SetDuration (kenBurnsMovement.Duration);
-			kenBurnsAlpha.RepeatMode = ValueAnimatorRepeatMode.Reverse;
-			kenBurnsAlpha.RepeatCount = ValueAnimator.Infinite;
-			kenBurnsAlpha.AnimationRepeat += (sender, e) => NextImage ();
-			kenBurnsAlpha.Start ();
+				kenBurnsAlpha = ObjectAnimator.OfInt (productDrawable, "alpha", 0, 0, 0, 255, 255, 255);
+				kenBurnsAlpha.SetDuration (kenBurnsMovement.Duration);
+				kenBurnsAlpha.RepeatMode = ValueAnimatorRepeatMode.Reverse;
+				kenBurnsAlpha.RepeatCount = ValueAnimator.Infinite;
+				kenBurnsAlpha.AnimationRepeat += (sender, e) => NextImage ();
+				kenBurnsAlpha.Start ();
+			}
 		}
 
 		async void NextImage ()
